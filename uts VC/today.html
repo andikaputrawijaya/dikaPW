@@ -1,0 +1,79 @@
+<html>
+
+<head>                     
+</head>
+
+<div id="list"></div> 
+<body bgcolor="#00FFFF">
+    <h1>Konversi Suhu</h1>
+
+    <label for="Konversi">Pilihan Konverensi Suhu:</label>
+    <br></br>
+
+    <select name="Konversi" id="Konversi">
+
+        <option value="reamfar">R ke F</option>      
+        
+        <option value="celfar">C ke F</option>
+
+        <option value="farencel">F ke C</option>
+        
+        <option value="celream">C ke R</option>
+
+        <option value="reamcel">R ke C</option>  
+
+        <option value="farream">F ke R</option>
+
+
+
+    </select>
+    
+    
+    <h5>C = Celcius</h5>
+    <h5>F = farenhite</h5>
+    <h5>R = Reamur</h5>
+    Masukan Angka
+    <br></br>
+    <input type="no" id="no" name="no" placeholder="suhu">
+    <br></br>
+    <button onclick="suhu ()">check</button>
+    <br></br>
+    <input type="text" id="hasil" name="hasil" placeholder="hasil">
+   
+</body>
+
+<script>
+    function suhu (){
+        var no = document.getElementById ('no').value;
+
+        var Konversi = document.getElementById ('Konversi').value;
+
+        var hasil;
+        
+        if (Konversi == "celfar") {
+            hasil = ((9/5)* parseInt(no)) + 32;
+
+        }else if (Konversi == "celream") {
+            hasil = (4/5)* parseInt (no);
+
+        }else if (Konversi == "farencel") {
+            hasil = (parseInt (no) - 32 ) / (9/5);
+
+        }else if (Konversi == "farream") {
+            hasil = (parseInt (no) - 32 ) / (9/4);
+
+        }else if (Konversi == "reamcel") {
+            hasil = (parseInt (no)) / (4/5);
+
+        }else if (Konversi == "reamfar") {
+            hasil = ((9/4) * parseInt(no)) + 32;
+
+        }else {
+            hasil = "Tidak Ada";
+        }
+        document.getElementById("hasil").value = hasil;
+    }
+
+</script>
+
+</html>
