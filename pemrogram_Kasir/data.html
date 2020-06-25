@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="stylesheet" type="text/css" href="style1.css">
+</head>
+<body>
+   <center><h2>Info Data Barang</h2></center>
+      <div id="list"></div>
+      
+</body>
+<script>
+   const electron = require("electron");
+   const {ipcRenderer} = electron;
+   ipcRenderer.send("transaksi:request:list");
+ 
+
+   ipcRenderer.on("transaksi:request:list", (event, transaksi) => {
+      const listDiv = document.getElementById("list");
+      transaksi.forEach(transaksi =>{
+         const transaksiDiv = document.createElement("div");
+         const TanggalParagraph = document.createElement("p");
+         TanggalParagraph.innerHTML = `Date: ${transaksi.Tanggal}`;
+
+         const Kode_BarangParagraph = document.createElement("p");
+         Kode_BarangParagraph.innerHTML = `Kode Barang: ${transaksi.Kode_Barang}`;
+
+         const Nama_BarangParagraph = document.createElement("p");
+         Nama_BarangParagraph.innerHTML = `Nama Barang: ${transaksi.Nama_Barang}`;
+
+         const Jumlah_BarangParagraph = document.createElement("p");
+         Jumlah_BarangParagraph.innerHTML = `Jumlah Barang: ${transaksi.Jumlah_Barang}`;
+
+         const Harga_BeliParagraph = document.createElement("p");
+         Harga_BeliParagraph.innerHTML = `Harga Beli: ${transaksi.Harga_Beli}`;
+
+         const Harga_JualParagraph = document.createElement("p");
+         Harga_JualParagraph.innerHTML = `Harga Jual: ${transaksi.Harga_Jual}`;
+
+
+         const doneParagraph = document.createElement("p");
+         doneParagraph.innerHTML = `Done: ${transaksi.done ? "Yes" : "No"}`;
+
+
+         const hr = document.createElement("hr");
+
+         transaksiDiv.appendChild(TanggalParagraph);
+         transaksiDiv.appendChild(Kode_BarangParagraph);
+         transaksiDiv.appendChild(Nama_BarangParagraph);
+         transaksiDiv.appendChild(Jumlah_BarangParagraph);
+         transaksiDiv.appendChild(Harga_BeliParagraph);
+         transaksiDiv.appendChild(Harga_JualParagraph);
+         transaksiDiv.appendChild(doneParagraph);
+         transaksiDiv.appendChild(hr);
+        
+
+         listDiv.append(transaksiDiv);
+      });
+   });
+</script>
+</html>

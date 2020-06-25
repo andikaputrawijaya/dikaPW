@@ -1,0 +1,67 @@
+body{
+    background-image: url(gambar/bg3.jpg);
+    background-size: cover;
+    font-style: oblique;
+    color: white;
+    border-color: white;
+    background-color:rgba(255, 255, 255, 0.5);
+}
+
+.menu {
+    margin-left:300px;
+}
+.tabel table {
+    width: 100%;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+td {
+    text-align: left;
+    font-size: medium;
+} 
+.total {
+    margin-left:300px;
+}
+.masuk{
+    margin-left:400px;
+}
+.input{
+    margin-left:400px;
+}
+.tabel1{
+    margin-top: 50px;
+    
+}
+.tabel{
+    margin-top: 50px;
+}
+.submit {
+    margin-top: 30px;
+}
+
+.judul{
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+h1{
+    text-align: center;
+}
+
+form{
+    margin-left: 150px;
+    background-color:rgba(26, 24, 24, 0.9);
+    width: 170px;
+    padding: 5px 26px;
+}
+
+input{
+    font-size: 15px;
+    border-radius: 20px;  
+}
+td{
+    color: black;
+    font-size: 19px;
+
+}

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KASIR BOOK</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">  
+</head>
+        <!-- Set tanggal dan nama submit -->
+<body onload="showTime(); SetDate();" id="submit">
+
+    <h1>Transaksi Penjualan Buku</h1>
+  <form name= "forminput" id="forminput">
+    <div class ="tabel1">
+      <tr>
+            <td><label>Tanggal: </label></td> <br>
+				    <td>
+              <input type="text" name="tanggal" id="myDate" size="15" disabled> <br><br>
+            </td>
+      </tr>
+      <tr>
+				<td><label>Waktu:</label></td> <br>
+				<td><input type="text" name="waktu" id="clock" size="15" disabled></td><br><br>
+      </tr>
+			<tr>
+				<td><label>Nama Pelanggan: </label></td><br>
+				<td><input type="text" id="nama" name="nama"  size="15" ></td><br><br>
+      </tr>
+    </table>
+  </div>
+
+    <!-- tabel kasir -->
+
+      
+      <tr>
+          <td><label for="name"> Kode Barang</label></td> <br />
+          <td><select name="inputkodebarang" onclick="kasir()">
+                      <option value="caption">List Kode</option>
+                        <option value="b010122">b010122</option>
+                      <option value="b020122">b020122</option>
+                      <option value="b030122">b030122</option>    
+                      <option value="b040122">b040122</option>
+                      <option value="b050122">b050122</option>      
+            </select required></td> <br><br>
+          </tr>
+      
+      <tr>
+      <td>Nama Barang</td> <br>
+      <td><input type = "text" size ="15" name ="inputnamabarang"></td> <br> <br>
+      </tr>
+      
+      <tr>
+      <td>Harga Satuan</td> <br>
+      <td><input type = "text" size ="15" name ="inputhargasatuan"></td> <br> <br>
+      </tr>
+      
+      <tr>
+      <td>Jumlah Barang	:</td> <br>
+      <td><input type = "text" size ="15" name ="inputjumlahbarang"></td> <br><br>
+      </tr>
+      
+      <tr>
+      <td></td> <br>
+      <td><input type="button" value="Hitung Total" onclick="hitungtotal()"></td> <br> <br>
+      </tr>
+      
+      <tr>
+      <td>Total</td> <br>
+      <td><input type = "text" size ="15" name ="inputtotal"></td> <br><br>
+      </tr>
+      
+      <tr>
+      <td>Bayar</td> <br>
+      <td><input type = "text" size ="15" name ="inputbayar"></td> <br><br>
+      </tr>
+      
+      <tr>
+      <td><input type="button" value="Hitung Bayar" onclick="hitungkembalian()"></td> <br><br>
+      </tr>
+      
+      <tr>
+      <td>Kembalian</td> <br>
+      <td><input type = "text" size ="15" name ="inputkembalian"></td> <br><br>
+      </tr>
+      </table>
+
+      <div class="submit">
+        <input type="submit" value="Batal" onclick="hapus()"/>
+        <input type="submit" value="Tambah"  onclick="submit()"/>
+        
+    </div>
+      </form>
+    </body>
+    <!-- fungsi submit -->
+    <script>
+      function hapus(){
+             document.forminput.reset();
+         }
+ </script>
+   
+         <script>
+             const electron = require("electron");
+             const {
+                ipcRenderer
+             } = electron;
+       
+             const form = document.getElementById("forminput");
+             const elements = {};
+       
+             form.addEventListener("submit", event => {
+                event.preventDefault();
+       
+                for (let i = 0; i < form.elements.length; i++) {
+                   if (form.elements[i].type !=="submit")
+                   elements[form.elements[i].name] = form.elements[i].value;
+                }
+                ipcRenderer.send("penjualan:data", elements);
+             });
+          </script>
+
+  <!-- tanggal otomatis -->
+  <script type="text/javascript">
+        function SetDate()
+        {
+        var date = new Date();
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+      
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+      
+        var today = day + "-" + month + "-" + year;
+      
+        document.getElementById('myDate').value = today;
+        }
+</script>
+        <!-- waktu otomatis -->
+<script type="text/javascript">
+          function showTime() {
+            var a_p = "";
+            var today = new Date();
+            var curr_hour = today.getHours();
+            var curr_minute = today.getMinutes();
+            var curr_second = today.getSeconds();
+            if (curr_hour < 12) {
+              a_p = "AM";
+            } else {
+              a_p = "PM";
+            }
+            if (curr_hour == 0) {
+              curr_hour = 12;
+            }
+            if (curr_hour > 12) {
+              curr_hour = curr_hour - 12;
+            }
+            var today = curr_hour + ":" + curr_minute + ":" + curr_second + " " + a_p;
+            document.getElementById('clock').value = today;
+          }   
+</script>
+
+<!-- hitung otomatis -->
+<script language ="javascript">
+
+  function kasir()
+  {
+  var kodebarang = (document.forminput.inputkodebarang.value);
+  var namabarang = "";
+  var hargabarang = 0.0;
+  
+      if (kodebarang =="b010122")
+            {
+            namabarang = "Buku Sidu";
+            hargabarang = 5000;
+            }
+            else if(kodebarang=="b020122")
+            {
+            namabarang = "Buku Gambar";
+            hargabarang = 3000;
+            }
+            else if(kodebarang=="b030122")
+            {
+            namabarang = "Pulpen";
+            hargabarang = 2000;
+            }
+            else if(kodebarang=="b040122")
+            {
+            namabarang = "Pensil";
+            hargabarang = 4000;
+            }
+            else if(kodebarang=="b050122")
+            {
+            namabarang = "Penghapus";
+            hargabarang = 1000;
+            }
+            else
+            {
+            namabarang = "";
+            hargabarang = 0;
+            }
+  
+      document.forminput.inputnamabarang.value=namabarang;
+  document.forminput.inputhargasatuan.value=eval(hargabarang);
+  }
+  
+  function hitungtotal()
+  {
+  var hargabarang = (document.forminput.inputhargasatuan.value);
+  var jumlahbarang = (document.forminput.inputjumlahbarang.value);
+  var total = 0.0;
+  
+  total = hargabarang * jumlahbarang;
+  
+  document.forminput.inputtotal.value = eval(total);
+  }
+  
+  function hitungkembalian()
+  {
+  var total = (document.forminput.inputtotal.value);
+  var uangbayar = (document.forminput.inputbayar.value);
+  var kembalian = 0.0;
+  
+  kembalian = uangbayar - total;
+  
+  document.forminput.inputkembalian.value = eval(kembalian);
+  }
+  </script>
+</html>

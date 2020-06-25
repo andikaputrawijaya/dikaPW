@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="stylesheet" type="text/css" href="style2.css">
+</head>
+<body>
+   <center>
+       <h1>Info Transaksi Penjualan</h1>
+       <h2>Jln Tukad Badung XXI No XI</h2>
+</center>
+
+      <div id="data"></div>
+      
+</body>
+<script>
+   const electron = require("electron");
+   const {ipcRenderer} = electron;
+   ipcRenderer.send("penjualan:request:data");
+ 
+
+   ipcRenderer.on("penjualan:request:data", (event, penjualan) => {
+      const dataDiv = document.getElementById("data");
+      penjualan.forEach(penjualan =>{
+         const penjualanDiv = document.createElement("div");
+
+         const tanggalParagraph = document.createElement("p");
+         tanggalParagraph.innerHTML = `Date: ${penjualan.tanggal}`;
+
+         const waktuParagraph = document.createElement("p");
+         waktuParagraph.innerHTML = `Time: ${penjualan.waktu}`;
+
+         const namaParagraph = document.createElement("p");
+         namaParagraph.innerHTML = `Nama Pelanggan: ${penjualan.nama}`;
+
+         const inputkodebarangParagraph = document.createElement("p");
+         inputkodebarangParagraph.innerHTML = `Kode Barang: ${penjualan.inputkodebarang}`;
+
+         const inputnamabarangParagraph = document.createElement("p");
+         inputnamabarangParagraph.innerHTML = `Nama Barang: ${penjualan.inputnamabarang}`;
+
+         const inputhargasatuanParagraph = document.createElement("p");
+         inputhargasatuanParagraph.innerHTML = `Harga Satuan: ${penjualan.inputhargasatuan}`;
+
+         const inputjumlahbarangParagraph = document.createElement("p");
+         inputjumlahbarangParagraph.innerHTML = `Jumlah Barang: ${penjualan.inputjumlahbarang}`;
+
+         const inputtotalParagraph = document.createElement("p");
+         inputtotalParagraph.innerHTML = `Total: ${penjualan.inputtotal}`;
+
+         const inputbayarParagraph = document.createElement("p");
+         inputbayarParagraph.innerHTML = `Bayar: ${penjualan.inputbayar}`;
+
+         const inputkembalianParagraph = document.createElement("p");
+         inputkembalianParagraph.innerHTML = `Kembalian: ${penjualan.inputkembalian}`;
+
+         const doneParagraph = document.createElement("p");
+         doneParagraph.innerHTML = `Done: ${penjualan.done ? "Yes" : "No"}`;
+
+
+         const hr = document.createElement("hr");
+
+         penjualanDiv.appendChild(tanggalParagraph);
+         penjualanDiv.appendChild(waktuParagraph);
+         penjualanDiv.appendChild(namaParagraph);
+         penjualanDiv.appendChild(inputkodebarangParagraph);
+         penjualanDiv.appendChild(inputnamabarangParagraph);
+         penjualanDiv.appendChild(inputhargasatuanParagraph);
+         penjualanDiv.appendChild(inputjumlahbarangParagraph);
+         penjualanDiv.appendChild(inputtotalParagraph);
+         penjualanDiv.appendChild(inputbayarParagraph);
+         penjualanDiv.appendChild(inputkembalianParagraph);
+         penjualanDiv.appendChild(doneParagraph);
+         penjualanDiv.appendChild(hr);
+        
+
+         dataDiv.append(penjualanDiv);
+      });
+   });
+</script>
+</html>

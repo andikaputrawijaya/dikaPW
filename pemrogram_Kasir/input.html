@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style1.css">  
+</head>
+<body>
+  <!-- Modal Tambah -->
+  
+    <h1>Tambahkan Barang Masuk</h1>
+<form id="form2" name="form2">
+    <div class="stok">
+            <label for="date">Tanggal</label> <br>
+            <input type="date" name="Tanggal" placeholder="YYYY-MM-DD" required /><br><br>
+ 
+
+    
+            <label for="name" >Kode Barang</label><br>
+            <input type="text" name="Kode_Barang" required > <br><br>
+  
+            
+       
+            <label for="name">Nama Barang</label> <br>
+            <input type="text" name="Nama_Barang"  required> <br><br>
+         
+            
+            
+            <label for="name">Jumlah Barang</label><br>
+            <input type="text" name="Jumlah_Barang"  required><br><br>
+          
+         
+            <label for="name">Harga Beli</label> <br>
+            <input type="text" name="Harga_Beli" required> <br> <br>
+           
+           
+            <label for="name">Harga Jual</label> <br>
+            <input type="text" name="Harga_Jual"required> <br> <br>
+            </div>
+     
+<center>        
+       
+        <a  onclick="hapus()">
+            <button class="submit">Batal</button>
+        </a>
+
+
+        <a  onclick="submit()">
+            <button class="submit">Tambah</button>
+        </a>
+        
+ </center>
+</form>
+
+
+<script>
+     function hapus(){
+            document.form2.reset();
+        }
+</script>
+  
+        <script>
+            const electron = require("electron");
+            const {
+               ipcRenderer
+            } = electron;
+      
+            const form = document.getElementById("form2");
+            const elements = {};
+      
+            form.addEventListener("submit", event => {
+               event.preventDefault();
+      
+               for (let i = 0; i < form.elements.length; i++) {
+                  if (form.elements[i].type !=="submit")
+                  elements[form.elements[i].name] = form.elements[i].value;
+               }
+               ipcRenderer.send("transaksi:input", elements);
+            });
+         </script>
+  </body>
+</html>
+
+   
+
